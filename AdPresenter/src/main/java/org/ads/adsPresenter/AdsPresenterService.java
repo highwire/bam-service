@@ -10,7 +10,11 @@ import org.springframework.core.io.Resource;
 @Service
 public interface AdsPresenterService {
 
-	String parseXSLT(Resource xslResource, Resource xmlResource, String publisherId, String jcode, String sectionPath) throws IOException, TransformerConfigurationException, Exception;
+	String parseXSLT(String xslPath, Resource xmlResource, String publisherId, String jcode, String sectionPath) throws IOException, TransformerConfigurationException, Exception;
+
+	String evictSpecificKey(String publisherId, String jcode);
+
+	String evictAllEnteries();
 
 	
 	

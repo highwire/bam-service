@@ -11,6 +11,8 @@ import javax.xml.transform.stream.StreamSource;
 
  import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
  import org.springframework.stereotype.Service;
@@ -20,15 +22,16 @@ import net.sf.saxon.TransformerFactoryImpl;
 @Service
 public class AdsPresenterServiceImpl implements AdsPresenterService{
 	public final static Logger logger = LoggerFactory.getLogger(AdsPresenterController.class);
-
+ 	 
+	
 	@Override
 	@Cacheable(value = "xsltCache", key = "#publisherId + '-' + #jcode")
-	public String parseXSLT(Resource xslResource, Resource xmlResource,String publisherId, String jcode, String sectionPath) throws Exception {
+	public String parseXSLT(String xslPath, Resource xmlResource,String publisherId, String jcode, String sectionPath) throws Exception {
 		logger.info("AdsPresenterServiceImpl : parseXSLT started");
 		try {
 			
   		StreamSource xml = new StreamSource(xmlResource.getInputStream());
- 		StreamSource xsltSource = new StreamSource(xslResource.getInputStream());
+ 		StreamSource xsltSource = new StreamSource(xslPath);
  		
 		TransformerFactory factory = new TransformerFactoryImpl();
 		Transformer transformer = factory.newTransformer(xsltSource); 
@@ -57,5 +60,17 @@ public class AdsPresenterServiceImpl implements AdsPresenterService{
 		 
 		
 	}
-
+	
+	@Override
+	@CacheEvict(value = "xsltCache", key = "#publisherId + '-' + #jcode")
+    public String evictSpecificKey(String publisherId, String jcode) {
+		return "Cache entry with key " + publisherId +" "+jcode +" has been evicted.";
+    }
+	
+	@Override
+	@CacheEvict(value = "xsltCache", allEntries = true)
+	public String evictAllEnteries() {
+	 
+		return "All entries in the cache xsltCache have been cleared.";
+	}
 }
