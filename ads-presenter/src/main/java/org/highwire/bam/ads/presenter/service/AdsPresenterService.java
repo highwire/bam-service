@@ -1,4 +1,4 @@
-package org.ads.adsPresenter;
+package org.highwire.bam.ads.presenter.service;
 
 import java.io.IOException;
  
