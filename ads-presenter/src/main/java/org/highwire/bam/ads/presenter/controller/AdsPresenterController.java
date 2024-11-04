@@ -48,7 +48,7 @@ public class AdsPresenterController {
 	}
 
 	@GetMapping("/ads/clear-cache")
-	public ResponseEntity<?> clearAdsCache(@RequestParam String publisherId, @RequestParam String jcode,
+	public ResponseEntity<?> clearAdsCache(@RequestParam String publisherId, @RequestParam String jcode,@RequestParam String sectionPath,
 			@RequestParam boolean masterReset) {
 		logger.info("AdsPresenterController : clearAdsCache started");
 		if (masterReset) {
@@ -57,7 +57,7 @@ public class AdsPresenterController {
 			return ResponseEntity.ok(result);
 
 		} else {
-			String deletedKey = adsPresenterService.evictSpecificKey(publisherId, jcode);
+			String deletedKey = adsPresenterService.evictSpecificKey(publisherId, jcode,sectionPath);
 			logger.info("AdsPresenterController : clearAdsCache ended");
 			return ResponseEntity.ok(deletedKey);
 		}

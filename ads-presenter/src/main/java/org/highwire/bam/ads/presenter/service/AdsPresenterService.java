@@ -12,7 +12,7 @@ public interface AdsPresenterService {
 
 	String parseXSLT(String xslPath, Resource xmlResource, String publisherId, String jcode, String sectionPath) throws IOException, TransformerConfigurationException, Exception;
 
-	String evictSpecificKey(String publisherId, String jcode);
+	String evictSpecificKey(String publisherId, String jcode, String sectionPath);
 
 	String evictAllEnteries();
 

@@ -26,7 +26,7 @@ public class AdsPresenterServiceImpl implements AdsPresenterService{
  	 
 	
 	@Override
-	@Cacheable(value = "xsltCache", key = "#publisherId + '-' + #jcode")
+	@Cacheable(value = "xsltCache", key = "#publisherId + '-' + #jcode + '-' + #sectionPath")
 	public String parseXSLT(String xslPath, Resource xmlResource,String publisherId, String jcode, String sectionPath) throws Exception {
 		logger.info("AdsPresenterServiceImpl : parseXSLT started");
 		try {
@@ -63,9 +63,9 @@ public class AdsPresenterServiceImpl implements AdsPresenterService{
 	}
 	
 	@Override
-	@CacheEvict(value = "xsltCache", key = "#publisherId + '-' + #jcode")
-    public String evictSpecificKey(String publisherId, String jcode) {
-		return "Cache entry with key " + publisherId +" "+jcode +" has been evicted.";
+	@CacheEvict(value = "xsltCache", key = "#publisherId + '-' + #jcode + '-' + #sectionPath")
+    public String evictSpecificKey(String publisherId, String jcode,String sectionPath) {
+		return "Cache entry with key " + publisherId +" "+jcode + " "+ sectionPath +" has been evicted.";
     }
 	
 	@Override
