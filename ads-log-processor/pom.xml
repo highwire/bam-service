@@ -6,5 +6,5 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.highwire.platform.springapp</groupId>
-  <artifactId>ads-log-processor</artifactId>
+  <artifactId>bam-logs-processor</artifactId>
 </project>
