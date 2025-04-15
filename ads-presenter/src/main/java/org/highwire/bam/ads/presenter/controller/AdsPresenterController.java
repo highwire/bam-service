@@ -19,8 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.highwire.bam.ads.presenter.service.AdsPresenterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.json.JSONObject;
-import org.json.XML;
+
 @RestController
 @RequestMapping("/api")
 public class AdsPresenterController {
