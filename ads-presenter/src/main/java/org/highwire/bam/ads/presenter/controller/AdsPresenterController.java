@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.highwire.bam.ads.presenter.service.AdsPresenterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.json.JSONObject;
+import org.json.XML;
 @RestController
 @RequestMapping("/api")
 public class AdsPresenterController {
@@ -29,6 +35,8 @@ public class AdsPresenterController {
 
 	@Value("${xsl.path}")
 	private String xslPath;
+	
+	
 
 	@GetMapping("/ads")
 	public ResponseEntity<?> getAdsList(@RequestParam String publisherId, @RequestParam String jcode,
@@ -37,10 +45,13 @@ public class AdsPresenterController {
 		try {
 			Resource xmlResource = resourceLoader.getResource("classpath:xml/Test.xml");
 			String outputWriter = adsPresenterService.parseXSLT(xslPath, xmlResource, publisherId, jcode, sectionPath);
-
+	        
 			logger.info("XSLT transformation completed successfully.");
 			logger.info("AdsPresenterController : getAdsList ended");
-			return ResponseEntity.ok(outputWriter);
+			 return ResponseEntity
+		                .ok()
+		                .contentType(MediaType.APPLICATION_JSON)
+		                .body(outputWriter);
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body("Error fetching or parsing file: " + e.getMessage());
 		}
