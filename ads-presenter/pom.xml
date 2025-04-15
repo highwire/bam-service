@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.highwire.platform.springapp</groupId>
     <artifactId>bam-service</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
   <groupId>org.highwire.platform.springapp</groupId>
   <artifactId>bam-ads-presenter</artifactId>
