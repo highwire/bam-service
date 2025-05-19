@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.highwire.bam.ads.presenter.service.AdsPresenterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +42,7 @@ public class AdsPresenterController {
 			Resource xmlResource = resourceLoader.getResource("classpath:xml/Test.xml");
 			String outputWriter = adsPresenterService.parseXSLT(xslPath, xmlResource, publisherId, jcode, sectionPath);
 	        
-			logger.info("XSLT transformation completed successfully.");
-			logger.info("AdsPresenterController : getAdsList ended");
+ 			logger.info("AdsPresenterController : getAdsList ended");
 			 return ResponseEntity
 		                .ok()
 		                .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +54,7 @@ public class AdsPresenterController {
 	}
 
 	@GetMapping("/ads/clear-cache")
-	public ResponseEntity<?> clearAdsCache(@RequestParam String publisherId, @RequestParam String jcode,@RequestParam String sectionPath,
+	public ResponseEntity<?> clearAdsCache(@RequestParam (required = false)String publisherId, @RequestParam (required = false) String jcode,@RequestParam (required = false)String sectionPath,
 			@RequestParam boolean masterReset) {
 		logger.info("AdsPresenterController : clearAdsCache started");
 		if (masterReset) {
